@@ -74,9 +74,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuItemThatwasSelected = item.getItemId();
         if(menuItemThatwasSelected == R.id.action_search){
-            Context context = MainActivity.this;
+           // Context context = MainActivity.this;
             String message = "Search clicked";
-            Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);
