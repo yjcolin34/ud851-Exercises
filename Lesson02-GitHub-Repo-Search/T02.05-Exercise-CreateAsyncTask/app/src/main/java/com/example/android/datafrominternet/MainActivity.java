@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         URL githubSearchUrl = NetworkUtils.buildUrl(githubQuery);
         mUrlDisplayTextView.setText(githubSearchUrl.toString());
         String githubSearchResults = null;
-        new GithubQueryTask().execute(githubSearchUrl)
+        new GithubQueryTask().execute(githubSearchUrl);
         // TODO (4) Create a new GithubQueryTask and call its execute method, passing in the url to query
     }
 
@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(s! = null && !s.equals("")){
+            if(s !=null && !s.equals("")){
                 mSearchResultsTextView.setText(s);
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
