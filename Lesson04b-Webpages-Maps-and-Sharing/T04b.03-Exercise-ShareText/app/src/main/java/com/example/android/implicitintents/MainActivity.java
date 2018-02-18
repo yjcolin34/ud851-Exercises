@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         // TODO (5) Specify a String you'd like to share
 
         // TODO (6) Replace the Toast with shareText, passing in the String from step 5
-        Toast.makeText(this, "TODO: Share text when this is clicked", Toast.LENGTH_LONG).show();
+        String text = "hi I'm me";
+        shareText(text);
     }
 
     /**
@@ -77,9 +78,8 @@ public class MainActivity extends AppCompatActivity {
      * similar to what I've done above. You can view a list of implicit Intents on the Common
      * Intents page from the developer documentation.
      *
-     * @see <http://developer.android.com/guide/components/intents-common.html/>
-     *
      * @param v Button that was clicked.
+     * @see <http://developer.android.com/guide/components/intents-common.html/>
      */
     public void createYourOwn(View v) {
         Toast.makeText(this,
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method will fire off an implicit Intent to view a location on a map.
-     *
+     * <p>
      * When constructing implicit Intents, you can use either the setData method or specify the
      * URI as the second parameter of the Intent's constructor,
      * as I do in {@link #openWebPage(String)}
@@ -145,10 +145,19 @@ public class MainActivity extends AppCompatActivity {
 
     // TODO (1) Create a void method called shareText that accepts a String as a parameter
     // Do steps 2 - 4 within the shareText method
-
+    public void shareText(String text) {
         // TODO (2) Create a String variable called mimeType and set it to "text/plain"
 
         // TODO (3) Create a title for the chooser window that will pop up
 
         // TODO (4) Use ShareCompat.IntentBuilder to build the Intent and start the chooser
+        String mimeType = "text/plain";
+        Intent sendIntnet = new Intent();
+        sendIntnet.setAction(Intent.ACTION_SEND);
+        sendIntnet.putExtra(Intent.EXTRA_TEXT, text);
+        sendIntnet.setType(mimeType);
+        startActivity(sendIntnet);
+
+    }
+
 }
