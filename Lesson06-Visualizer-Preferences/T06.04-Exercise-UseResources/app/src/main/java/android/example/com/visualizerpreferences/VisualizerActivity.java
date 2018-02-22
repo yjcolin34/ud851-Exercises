@@ -33,6 +33,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import static android.example.com.visualizerpreferences.R.bool.pref_show_bass_default;
+import static java.lang.Boolean.getBoolean;
+
 public class VisualizerActivity extends AppCompatActivity {
 
     private static final int MY_PERMISSION_RECORD_AUDIO_REQUEST_CODE = 88;
@@ -52,7 +55,8 @@ public class VisualizerActivity extends AppCompatActivity {
         // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         // TODO (4) Use resources here instead of the hard coded string and boolean
-        mVisualizerView.setShowBass(sharedPreferences.getBoolean("show_bass", true));
+        mVisualizerView.setShowBass(sharedPreferences.getBoolean(getString(R.string.pref_show_bass_key),
+                getResources().getBoolean(pref_show_bass_default)));
         mVisualizerView.setShowMid(true);
         mVisualizerView.setShowTreble(true);
         mVisualizerView.setMinSizeScale(1);
