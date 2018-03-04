@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.example.android.waitlist.data.WaitlistContract;
+import com.example.android.waitlist.data.WaitlistContract.WaitlistEntry;
 import com.example.android.waitlist.data.WaitlistDbHelper;
 
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecyclerView waitlistRecyclerView;
+        final RecyclerView waitlistRecyclerView;
 
         // Set local attributes to corresponding views
         waitlistRecyclerView = (RecyclerView) this.findViewById(R.id.all_guests_list_view);
@@ -58,12 +60,26 @@ public class MainActivity extends AppCompatActivity {
 
 
         //TODO (3) Create a new ItemTouchHelper with a SimpleCallback that handles both LEFT and RIGHT swipe directions
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT | ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, ViewHolder viewHolder,
+                ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(ViewHolder viewHolder, int direction) {
+                long id = (long) viewHolder.itemView.getTag();
+                removeGuest(id);
+                mAdapter.swapCursor(getAllGuests());
+            }
+        }).attachToRecyclerView(waitlistRecyclerView);
         // TODO (4) Override onMove and simply return false inside
 
         // TODO (5) Override onSwiped
 
         // TODO (8) Inside, get the viewHolder's itemView's tag and store in a long variable id
+
         // TODO (9) call removeGuest and pass through that id
         // TODO (10) call swapCursor on mAdapter passing in getAllGuests() as the argument
 
@@ -137,8 +153,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO (1) Create a new function called removeGuest that takes long id as input and returns a boolean
+    private Boolean removeGuest(long id){
+        // TODO (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
 
-    // TODO (2) Inside, call mDb.delete to pass in the TABLE_NAME and the condition that WaitlistEntry._ID equals id
+    return mDb.delete(WaitlistContract.WaitlistEntry.TABLE_NAME, WaitlistContract.WaitlistEntry._ID + "=" + id, null) >0;
+    }
 
 
 }
