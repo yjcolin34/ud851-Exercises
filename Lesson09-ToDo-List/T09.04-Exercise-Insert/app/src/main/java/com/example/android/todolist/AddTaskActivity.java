@@ -69,8 +69,7 @@ public class AddTaskActivity extends AppCompatActivity {
         }
         finish();
     }
-
-
+    
     /**
      * onPrioritySelected is called whenever a priority button is clicked.
      * It changes the value of mPriority based on the selected button.
